@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">豆瓣电影</string>
+
+    <!-- Messages -->
+    <string name="set_permissions_in_settings">请在应用设置中启用权限</string>
+    <string name="menu_title_hot">热映</string>
+    <string name="menu_title_find">找片</string>
+    <string name="menu_title_mine">我的</string>
+    <string name="hot_search_hint">电影 / 电视剧 / 影人</string>
+    <string name="the_end">— THE END —</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
