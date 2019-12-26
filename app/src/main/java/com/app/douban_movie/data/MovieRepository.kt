@@ -1,13 +1,10 @@
 package com.app.douban_movie.data
 
-import com.app.douban_movie.base.Repository
 import com.app.douban_movie.data.model.Theaters
 import com.app.douban_movie.data.remote.service.MovieService
 import timber.log.Timber
 
-class MovieRepository(private val movieService: MovieService) : Repository {
-
-    override var isLoading: Boolean = false
+class MovieRepository(private val movieService: MovieService){
 
     init {
         Timber.d("Injection MovieRepository")

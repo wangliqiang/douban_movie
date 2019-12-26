@@ -20,21 +20,27 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
         get() = _InTheaters
 
     init {
+        loading()
+    }
+
+    fun loading() {
+        _status.value = ApiStatus.LOADING
         loadInTheaters()
     }
 
     fun refresh() {
+        _status.value = ApiStatus.REFRESH
         loadInTheaters()
     }
 
     fun retry() {
+        _status.value = ApiStatus.LOADING
         loadInTheaters()
     }
 
     private fun loadInTheaters() {
         coroutineScope.launch {
             try {
-                _status.value = ApiStatus.LOADING
                 movieRepository.loadIntheaters("济南", 0, 50).let {
                     _InTheaters.postValue(it)
                     _status.value = ApiStatus.DONE
