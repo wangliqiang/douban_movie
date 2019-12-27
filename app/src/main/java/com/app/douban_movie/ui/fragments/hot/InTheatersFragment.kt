@@ -37,11 +37,12 @@ class InTheatersFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        viewModel.inTheaterloading()
+
         inTheatersAdapter = InTheatersAdapter()
 
-        intheater_rv.apply {
-            adapter = this@InTheatersFragment.inTheatersAdapter
-        }
+        intheater_rv.adapter = inTheatersAdapter
 
         viewModel.inTheaters.observe(viewLifecycleOwner, Observer {
             inTheatersAdapter.submitList(it?.subjects);
@@ -49,7 +50,7 @@ class InTheatersFragment : Fragment() {
         })
 
         binding.smartRefreshLayout.setOnRefreshListener {
-            viewModel.refresh()
+            viewModel.inTheaterRefresh()
         }
 
     }

@@ -11,43 +11,71 @@ import kotlinx.coroutines.launch
 class HotViewModel constructor(private val movieRepository: MovieRepository) :
     BaseViewModel() {
 
-    private val _status = MutableLiveData<ApiStatus>()
-    val status: LiveData<ApiStatus>
-        get() = _status
 
-    private var _InTheaters: MutableLiveData<Theaters> = MutableLiveData()
+    private var _inTheaters: MutableLiveData<Theaters> = MutableLiveData()
     val inTheaters: LiveData<Theaters>
-        get() = _InTheaters
+        get() = _inTheaters
 
-    init {
-        loading()
-    }
+    private var _comingSoon: MutableLiveData<Theaters> = MutableLiveData()
+    val comingSoon: LiveData<Theaters>
+        get() = _comingSoon
 
-    fun loading() {
+    fun inTheaterloading() {
         _status.value = ApiStatus.LOADING
         loadInTheaters()
     }
 
-    fun refresh() {
+    fun inTheaterRefresh() {
         _status.value = ApiStatus.REFRESH
         loadInTheaters()
     }
 
-    fun retry() {
+    fun inTheaterRetry() {
         _status.value = ApiStatus.LOADING
         loadInTheaters()
     }
+
+    fun comingSoonloading() {
+        _status.value = ApiStatus.LOADING
+        loadComingSoon()
+    }
+
+    fun comingSoonRefresh() {
+        _status.value = ApiStatus.REFRESH
+        loadComingSoon()
+    }
+
+    fun comingSoonRetry() {
+        _status.value = ApiStatus.LOADING
+        loadComingSoon()
+    }
+
 
     private fun loadInTheaters() {
         coroutineScope.launch {
             try {
                 movieRepository.loadIntheaters("济南", 0, 50).let {
-                    _InTheaters.postValue(it)
+                    _inTheaters.postValue(it)
                     _status.value = ApiStatus.DONE
                 }
             } catch (ex: Exception) {
                 _status.value = ApiStatus.ERROR
-                _InTheaters.value = null
+                _inTheaters.value = null
+            }
+
+        }
+    }
+
+    private fun loadComingSoon() {
+        coroutineScope.launch {
+            try {
+                movieRepository.loadComingSoon("济南", 0, 50).let {
+                    _comingSoon.postValue(it)
+                    _status.value = ApiStatus.DONE
+                }
+            } catch (ex: Exception) {
+                _status.value = ApiStatus.ERROR
+                _comingSoon.value = null
             }
 
         }

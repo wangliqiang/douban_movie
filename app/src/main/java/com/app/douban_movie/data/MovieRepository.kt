@@ -13,4 +13,7 @@ class MovieRepository(private val movieService: MovieService){
     suspend fun loadIntheaters(city: String, start: Int, count: Int): Theaters {
         return movieService.getInTheaters(city, start, count)
     }
+    suspend fun loadComingSoon(city: String, start: Int, count: Int): Theaters {
+        return movieService.getComingSoon(city, start, count)
+    }
 }

@@ -1,4 +1,4 @@
-package com.app.douban_movie_ktx.utils
+package com.app.douban_movie.utils
 
 import java.math.BigDecimal
 
