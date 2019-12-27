@@ -1,15 +1,18 @@
 package com.app.douban_movie.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.douban_movie.data.model.Subject
 import com.app.douban_movie.databinding.ItemInTheatersRecyclerviewBinding
+import com.app.douban_movie.utils.Logger
 import com.google.common.base.Strings
 
-class InTheatersAdapter : ListAdapter<Subject, InTheatersAdapter.ViewHolder>(diffCallback) {
+class InTheatersAdapter(private val delegate: ViewHolder.Delegate) :
+    ListAdapter<Subject, InTheatersAdapter.ViewHolder>(diffCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -18,9 +21,8 @@ class InTheatersAdapter : ListAdapter<Subject, InTheatersAdapter.ViewHolder>(dif
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), delegate
         )
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -58,14 +60,30 @@ class InTheatersAdapter : ListAdapter<Subject, InTheatersAdapter.ViewHolder>(dif
 
     }
 
-    inner class ViewHolder(val binding: ItemInTheatersRecyclerviewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        val binding: ItemInTheatersRecyclerviewBinding,
+        private val delegate: Delegate
+    ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        private lateinit var subject: Subject
         fun bind(subjects: Subject) {
+            this.subject = subjects
             binding.apply {
                 subject = subjects
                 executePendingBindings()
             }
+        }
+
+        interface Delegate {
+            fun onItemClick(subject: Subject)
+        }
+
+        override fun onClick(v: View?) {
+            delegate.onItemClick(subject)
         }
     }
 

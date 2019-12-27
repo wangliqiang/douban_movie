@@ -1,7 +1,11 @@
 package com.app.douban_movie.data.model
+
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
+@Parcelize
 data class Theaters(
     @SerializedName("count")
     val count: Int,
@@ -13,8 +17,9 @@ data class Theaters(
     val title: String,
     @SerializedName("total")
     val total: Int
-)
+) : Parcelable
 
+@Parcelize
 data class Subject(
     @SerializedName("alt")
     val alt: String,
@@ -48,8 +53,9 @@ data class Subject(
     val title: String,
     @SerializedName("year")
     val year: String
-)
+) : Parcelable
 
+@Parcelize
 data class Cast(
     @SerializedName("alt")
     val alt: String,
@@ -61,8 +67,9 @@ data class Cast(
     val name: String,
     @SerializedName("name_en")
     val nameEn: String
-)
+) : Parcelable
 
+@Parcelize
 data class Avatars(
     @SerializedName("large")
     val large: String,
@@ -70,8 +77,9 @@ data class Avatars(
     val medium: String,
     @SerializedName("small")
     val small: String
-)
+) : Parcelable
 
+@Parcelize
 data class Director(
     @SerializedName("alt")
     val alt: String,
@@ -83,8 +91,9 @@ data class Director(
     val name: String,
     @SerializedName("name_en")
     val nameEn: String
-)
+) : Parcelable
 
+@Parcelize
 data class AvatarsX(
     @SerializedName("large")
     val large: String,
@@ -92,8 +101,9 @@ data class AvatarsX(
     val medium: String,
     @SerializedName("small")
     val small: String
-)
+) : Parcelable
 
+@Parcelize
 data class Images(
     @SerializedName("large")
     val large: String,
@@ -101,8 +111,9 @@ data class Images(
     val medium: String,
     @SerializedName("small")
     val small: String
-)
+) : Parcelable
 
+@Parcelize
 data class Rating(
     @SerializedName("average")
     val average: Double,
@@ -114,8 +125,9 @@ data class Rating(
     val min: Int,
     @SerializedName("stars")
     val stars: String
-)
+) : Parcelable
 
+@Parcelize
 data class Details(
     @SerializedName("1")
     val x1: Double,
@@ -127,4 +139,4 @@ data class Details(
     val x4: Double,
     @SerializedName("5")
     val x5: Double
-)
+) : Parcelable

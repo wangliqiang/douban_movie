@@ -9,16 +9,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.app.douban_movie.R
+import com.app.douban_movie.data.model.Subject
 import com.app.douban_movie.databinding.FragmentInTheatersBinding
+import com.app.douban_movie.ui.MovieDetailActivity
 import com.app.douban_movie.ui.adapters.InTheatersAdapter
 import com.app.douban_movie.ui.viewmodels.HotViewModel
+import com.app.douban_movie.utils.Logger
 import kotlinx.android.synthetic.main.fragment_in_theaters.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
  */
-class InTheatersFragment : Fragment() {
+class InTheatersFragment : Fragment(), InTheatersAdapter.ViewHolder.Delegate {
 
     private val viewModel by viewModel<HotViewModel>()
     private lateinit var binding: FragmentInTheatersBinding
@@ -40,7 +43,7 @@ class InTheatersFragment : Fragment() {
 
         viewModel.inTheaterloading()
 
-        inTheatersAdapter = InTheatersAdapter()
+        inTheatersAdapter = InTheatersAdapter(this)
 
         intheater_rv.adapter = inTheatersAdapter
 
@@ -53,6 +56,10 @@ class InTheatersFragment : Fragment() {
             viewModel.inTheaterRefresh()
         }
 
+    }
+
+    override fun onItemClick(subject: Subject) {
+        MovieDetailActivity.start(requireContext(), subject)
     }
 
 }
