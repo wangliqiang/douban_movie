@@ -8,7 +8,6 @@ import android.text.TextPaint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.app.douban_movie.R
-import com.app.douban_movie.utils.Logger
 
 
 class HeaderDecoration(
