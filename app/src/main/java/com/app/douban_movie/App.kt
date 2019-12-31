@@ -6,7 +6,9 @@ import com.app.douban_movie.di.repositoryModule
 import com.app.douban_movie.di.viewModelModule
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import timber.log.Timber
 
 class App : Application() {
@@ -16,6 +18,7 @@ class App : Application() {
         AndroidThreeTen.init(this)
 
         startKoin {
+            androidLogger(Level.DEBUG)
             androidContext(this@App)
             modules(networkModule)
             modules(viewModelModule)
