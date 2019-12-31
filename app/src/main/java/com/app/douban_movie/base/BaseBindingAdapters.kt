@@ -5,7 +5,7 @@ import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.app.douban_movie.R
-import com.app.douban_movie_ktx.data.remote.ApiStatus
+import com.app.douban_movie.data.remote.ApiStatus
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 

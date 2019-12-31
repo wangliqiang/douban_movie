@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.app.douban_movie.base.BaseViewModel
 import com.app.douban_movie.data.MovieRepository
 import com.app.douban_movie.data.model.Theaters
-import com.app.douban_movie_ktx.data.remote.ApiStatus
+import com.app.douban_movie.data.remote.ApiStatus
 import kotlinx.coroutines.launch
 
 class HotViewModel constructor(private val movieRepository: MovieRepository) :

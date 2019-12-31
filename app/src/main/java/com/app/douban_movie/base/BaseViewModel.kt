@@ -3,7 +3,7 @@ package com.app.douban_movie.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.app.douban_movie_ktx.data.remote.ApiStatus
+import com.app.douban_movie.data.remote.ApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
