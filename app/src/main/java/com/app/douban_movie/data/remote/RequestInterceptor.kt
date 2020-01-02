@@ -9,7 +9,7 @@ class RequestInterceptor : Interceptor {
     val originalRequest = chain.request()
     val originalUrl = originalRequest.url
 
-    // add TheMovieDB api automatically every requests.
+    // add api automatically every requests.
     val url = originalUrl.newBuilder()
       .addQueryParameter("apikey", BuildConfig.MOVIE_API_KEY)
       .build()
