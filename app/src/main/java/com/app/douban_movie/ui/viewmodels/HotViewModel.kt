@@ -6,7 +6,6 @@ import com.app.douban_movie.base.BaseViewModel
 import com.app.douban_movie.data.MovieRepository
 import com.app.douban_movie.data.model.Theaters
 import com.app.douban_movie.data.remote.ApiStatus
-import kotlinx.coroutines.launch
 
 class HotViewModel constructor(private val movieRepository: MovieRepository) :
     BaseViewModel() {
@@ -52,32 +51,32 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
 
 
     private fun loadInTheaters() {
-        coroutineScope.launch {
-            try {
+        request(
+            onError = {
+                _status.value = ApiStatus.ERROR
+                _inTheaters.value = null
+            },
+            onExecute = {
                 movieRepository.loadIntheaters("济南", 0, 50).let {
                     _inTheaters.postValue(it)
                     _status.value = ApiStatus.DONE
                 }
-            } catch (ex: Exception) {
-                _status.value = ApiStatus.ERROR
-                _inTheaters.value = null
             }
-
-        }
+        )
     }
 
     private fun loadComingSoon() {
-        coroutineScope.launch {
-            try {
+        request(
+            onError = {
+                _status.value = ApiStatus.ERROR
+                _inTheaters.value = null
+            },
+            onExecute = {
                 movieRepository.loadComingSoon("济南", 0, 50).let {
                     _comingSoon.postValue(it)
                     _status.value = ApiStatus.DONE
                 }
-            } catch (ex: Exception) {
-                _status.value = ApiStatus.ERROR
-                _comingSoon.value = null
             }
-
-        }
+        )
     }
 }

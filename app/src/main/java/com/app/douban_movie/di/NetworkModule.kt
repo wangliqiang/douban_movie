@@ -3,7 +3,6 @@ package com.app.douban_movie.di
 import com.app.douban_movie.BuildConfig
 import com.app.douban_movie.data.remote.RequestInterceptor
 import com.app.douban_movie.data.remote.service.MovieService
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -17,11 +16,12 @@ val networkModule = module {
             override fun log(message: String) {
                 Timber.e(message)
             }
-        })
-        if (BuildConfig.DEBUG) {
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        } else {
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+        }).apply {
+            if (BuildConfig.DEBUG) {
+                level = HttpLoggingInterceptor.Level.BODY
+            } else {
+                level = HttpLoggingInterceptor.Level.BASIC
+            }
         }
 
         OkHttpClient.Builder()
@@ -35,7 +35,6 @@ val networkModule = module {
             .client(get<OkHttpClient>())
             .baseUrl(BuildConfig.MOVIE_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
             .build()
     }
 
