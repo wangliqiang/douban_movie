@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.douban_movie.data.remote.ApiStatus
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 open class BaseViewModel : ViewModel() {
@@ -19,11 +16,11 @@ open class BaseViewModel : ViewModel() {
         get() = _status
 
     fun <T> request(
-        onError: (error: Throwable) -> Unit = {},
+        onError: (t: Throwable) -> Unit = {},
         onExecute: suspend CoroutineScope.() -> T
     ) {
         viewModelScope.launch(errorHandler { onError.invoke(it) }) {
-            launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
                 onExecute()
             }
         }
