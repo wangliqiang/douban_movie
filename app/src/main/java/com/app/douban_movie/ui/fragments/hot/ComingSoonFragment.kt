@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.app.douban_movie.data.model.Theaters
 
 import com.app.douban_movie.databinding.FragmentComingSoonBinding
 import com.app.douban_movie.ui.adapters.ComingSoonAdapter
@@ -46,37 +47,8 @@ class ComingSoonFragment : Fragment() {
         comingsoon_rv.adapter = comingSoonAdapter
 
         viewModel.comingSoon.observe(viewLifecycleOwner, Observer {
-            comingSoonAdapter.submitList(it?.subjects);
-
-            val headerList = ArrayList<HeaderDecoration.HeaderBean>()
-            for (i in it.subjects.indices) {
-                headerList.add(HeaderDecoration.HeaderBean(it.subjects.get(i).mainlandPubdate))
-            }
-            binding.comingsoonRv.clearDecorations()
-            binding.comingsoonRv.addItemDecoration(
-                HeaderDecoration(
-                    headerList,
-                    requireContext(),
-                    object :
-                        HeaderDecoration.DecorationCallback {
-                        override fun getGroupId(position: Int): String {
-                            if (headerList[position].name.isNullOrEmpty()) {
-                                return "-1"
-                            } else {
-                                return headerList[position].name
-                            }
-                        }
-
-                        override fun getGroupFirstLine(position: Int): String {
-                            if (headerList[position].name.isNullOrEmpty()) {
-                                return ""
-                            } else {
-                                return headerList[position].name
-                            }
-                        }
-                    })
-            )
-
+            it ?: return@Observer
+            initializeList(it)
             binding.smartRefreshLayout.finishRefresh()
         })
 
@@ -86,7 +58,45 @@ class ComingSoonFragment : Fragment() {
 
     }
 
-    fun RecyclerView.clearDecorations() {
+    private fun initializeList(theaters: Theaters) {
+        val subjects = theaters.subjects
+        comingSoonAdapter.submitList(subjects);
+
+        if (subjects.isNotEmpty()) {
+            val headerList = ArrayList<HeaderDecoration.HeaderBean>()
+            for (i in subjects.indices) {
+                headerList.add(HeaderDecoration.HeaderBean(subjects[i].mainlandPubdate))
+            }
+            binding.comingsoonRv.run {
+                binding.comingsoonRv.clearDecorations()
+                binding.comingsoonRv.addItemDecoration(
+                    HeaderDecoration(
+                        headerList,
+                        requireContext(),
+                        object :
+                            HeaderDecoration.DecorationCallback {
+                            override fun getGroupId(position: Int): String {
+                                if (headerList[position].name.isNullOrEmpty()) {
+                                    return "-1"
+                                } else {
+                                    return headerList[position].name
+                                }
+                            }
+
+                            override fun getGroupFirstLine(position: Int): String {
+                                if (headerList[position].name.isNullOrEmpty()) {
+                                    return ""
+                                } else {
+                                    return headerList[position].name
+                                }
+                            }
+                        })
+                )
+            }
+        }
+    }
+
+    private fun RecyclerView.clearDecorations() {
         if (itemDecorationCount > 0) {
             for (i in itemDecorationCount - 1 downTo 0) {
                 removeItemDecorationAt(i)
