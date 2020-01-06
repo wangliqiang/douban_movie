@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.douban_movie.data.remote.ApiStatus
 import kotlinx.coroutines.*
-import timber.log.Timber
 
 open class BaseViewModel : ViewModel() {
 
@@ -33,7 +32,6 @@ open class BaseViewModel : ViewModel() {
 
     private fun errorHandler(onError: (error: Throwable) -> Unit): CoroutineExceptionHandler {
         return CoroutineExceptionHandler { _, throwable ->
-            Timber.d(throwable)
             onError.invoke(throwable)
         }
     }

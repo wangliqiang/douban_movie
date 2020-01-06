@@ -54,7 +54,7 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
         request(
             onError = {
                 _status.postValue(ApiStatus.ERROR)
-                _inTheaters.value = null
+                _inTheaters.postValue(null)
             },
             onExecute = {
                 movieRepository.loadIntheaters("济南", 0, 50).let {
@@ -71,7 +71,7 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
         request(
             onError = {
                 _status.postValue(ApiStatus.ERROR)
-                _inTheaters.value = null
+                _comingSoon.postValue(null)
             },
             onExecute = {
                 movieRepository.loadComingSoon("济南", 0, 50).let {
