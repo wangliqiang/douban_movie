@@ -17,11 +17,16 @@ open class BaseViewModel : ViewModel() {
 
     fun <T> request(
         onError: (t: Throwable) -> Unit = {},
-        onExecute: suspend CoroutineScope.() -> T
+        onExecute: suspend CoroutineScope.() -> T,
+        onComplete: () -> Unit = {}
     ) {
         viewModelScope.launch(errorHandler { onError.invoke(it) }) {
             withContext(Dispatchers.IO) {
-                onExecute()
+                try {
+                    onExecute()
+                }finally {
+                    onComplete()
+                }
             }
         }
     }

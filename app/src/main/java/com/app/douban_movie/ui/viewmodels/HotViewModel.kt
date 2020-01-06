@@ -59,8 +59,10 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
             onExecute = {
                 movieRepository.loadIntheaters("济南", 0, 50).let {
                     _inTheaters.postValue(it)
-                    _status.postValue(ApiStatus.DONE)
                 }
+            },
+            onComplete = {
+                _status.postValue(ApiStatus.DONE)
             }
         )
     }
@@ -74,8 +76,10 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
             onExecute = {
                 movieRepository.loadComingSoon("济南", 0, 50).let {
                     _comingSoon.postValue(it)
-                    _status.postValue(ApiStatus.DONE)
                 }
+            },
+            onComplete = {
+                _status.postValue(ApiStatus.DONE)
             }
         )
     }
