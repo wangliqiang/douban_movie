@@ -24,14 +24,15 @@ class MovieDetailActivity : AppCompatActivity() {
 
         subject = intent.getParcelableExtra("subject")
 
-        this.setSupportActionBar(binding.toolbar)
-        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        this.supportActionBar?.title = subject.title
-        binding.toolbar.apply {
-            setNavigationOnClickListener {
-                finish()
+        binding.toolbar.let { toolbar ->
+            setSupportActionBar(toolbar)
+            supportActionBar?.let {
+                it.title = subject.title
+                it.setDisplayHomeAsUpEnabled(true)
+                it.setDisplayShowHomeEnabled(true)
             }
         }
+        binding.toolbar.setNavigationOnClickListener { finish() }
 
         with(binding) {
             lifecycleOwner = this@MovieDetailActivity
