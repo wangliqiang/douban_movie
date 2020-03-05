@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.app.douban_movie.R
 import com.app.douban_movie.ui.fragments.hot.ComingSoonFragment
 import com.app.douban_movie.ui.fragments.hot.InTheatersFragment

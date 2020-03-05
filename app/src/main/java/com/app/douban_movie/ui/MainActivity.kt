@@ -15,7 +15,6 @@ import com.app.douban_movie.ui.fragments.FindFragment
 import com.app.douban_movie.ui.fragments.HotFragment
 import com.app.douban_movie.ui.fragments.MineFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 

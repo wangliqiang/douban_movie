@@ -40,12 +40,4 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
     }
-
-    companion object {
-        fun start(context: Context, subject: Subject) {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra("subject", subject)
-            context?.startActivity(intent)
-        }
-    }
 }

@@ -98,8 +98,8 @@ class HeaderDecoration(
         val childCount = parent.childCount
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight
-        val lineHeight = textPaint.textSize + fontMetrics.descent
-        var preGroupId = ""
+//        val lineHeight = textPaint.textSize + fontMetrics.descent
+        var preGroupId: String
         var groupId = "-1"
         for (i in 0 until childCount) {
             val view = parent.getChildAt(i)

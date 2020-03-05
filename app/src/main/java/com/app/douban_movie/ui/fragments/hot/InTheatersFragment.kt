@@ -1,6 +1,7 @@
 package com.app.douban_movie.ui.fragments.hot
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import com.app.douban_movie.databinding.FragmentInTheatersBinding
 import com.app.douban_movie.ui.MovieDetailActivity
 import com.app.douban_movie.ui.adapters.InTheatersAdapter
 import com.app.douban_movie.ui.viewmodels.HotViewModel
-import com.app.douban_movie.utils.Logger
 import kotlinx.android.synthetic.main.fragment_in_theaters.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -38,8 +38,8 @@ class InTheatersFragment : Fragment(), InTheatersAdapter.ViewHolder.Delegate {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.inTheaterloading()
 
@@ -55,11 +55,12 @@ class InTheatersFragment : Fragment(), InTheatersAdapter.ViewHolder.Delegate {
         binding.smartRefreshLayout.setOnRefreshListener {
             viewModel.inTheaterRefresh()
         }
-
     }
 
     override fun onItemClick(subject: Subject) {
-        MovieDetailActivity.start(requireContext(), subject)
+        val intent = Intent(context, MovieDetailActivity::class.java)
+        intent.putExtra("subject", subject)
+        startActivity(intent)
     }
 
 }
