@@ -20,7 +20,7 @@ open class BaseViewModel : ViewModel() {
         onComplete: () -> Unit = {}
     ) {
         viewModelScope.launch(errorHandler { onError.invoke(it) }) {
-            withContext(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
                 try {
                     onExecute()
                 }finally {

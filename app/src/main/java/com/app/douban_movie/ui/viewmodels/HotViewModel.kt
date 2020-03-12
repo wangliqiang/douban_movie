@@ -53,7 +53,7 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
     private fun loadInTheaters() {
         request(
             onError = {
-                _status.postValue(ApiStatus.ERROR)
+                _status.value = ApiStatus.ERROR
                 _inTheaters.postValue(null)
             },
             onExecute = {
@@ -62,7 +62,7 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
                 }
             },
             onComplete = {
-                _status.postValue(ApiStatus.DONE)
+                _status.value = ApiStatus.DONE
             }
         )
     }
@@ -70,7 +70,7 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
     private fun loadComingSoon() {
         request(
             onError = {
-                _status.postValue(ApiStatus.ERROR)
+                _status.value = ApiStatus.ERROR
                 _comingSoon.postValue(null)
             },
             onExecute = {
@@ -79,7 +79,7 @@ class HotViewModel constructor(private val movieRepository: MovieRepository) :
                 }
             },
             onComplete = {
-                _status.postValue(ApiStatus.DONE)
+                _status.value = ApiStatus.DONE
             }
         )
     }
